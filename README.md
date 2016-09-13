@@ -55,6 +55,27 @@ Note: grab-site currently **does not work with Python 3.5**; please use Python 3
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+Install with Docker
+---
+Get the pre-built docker container:
+
+```bash
+docker pull slang800/grab-site
+```
+
+Start the grab-site server. You can set the port, volume, and name to whatever you want:
+
+```bash
+docker run --detach -p 29000:29000 -v /home/ludios/download/grab-site-data:/data --name warcfactory slang800/grab-site
+```
+
+Run a new crawl:
+
+```bash
+docker exec warcfactory grab-site --no-offsite-links http://xkcd.com/
+```
+
+The downloaded data, temp files, ignores list, and other configuration will be in a sub-directory of the mounted volume. In this case, `/home/ludios/download/grab-site-data/xkcd.com-2016-09-05-caf0a39c`.
 
 Install on Ubuntu 14.04 - 15.10
 ---
