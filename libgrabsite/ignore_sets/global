@@ -44,15 +44,12 @@
 /\\/\\/
 /'\+[^/]+\+'
 ^https?://{primary_netloc}/.+/%3Ca%20href=
-
-# Avoid websites on localhost and LAN IPs, in case the user runs grab-site on
-# a host where non-public information is accessible on local servers.
-^(ftp|https?)://localhost(:\d+)?/
-^(ftp|https?)://(127|10)\.\d+\.\d+\.\d+(:\d+)?/
-^(ftp|https?)://172\.(1[6-9]|2\d|3[01])\.\d+\.\d+(:\d+)?/
-^(ftp|https?)://192\.168\.\d+\.\d+(:\d+)?/
+^https?://www\.youtube\.com/.*\[\[.+\]\]
+^https?://www\.youtube\.com/.*\{\{.+\}\}
 
 ^https?://www\.google\.com/recaptcha/(api|mailhide/d\?)
+^https?://www\.google\.com/accounts/AccountChooser
+^https?://accounts\.google\.com/(SignUp|ServiceLogin|AccountChooser|a/UniversalLogin)
 
 # CAPTCHAs on ASP.NET sites
 ^https?://[^/]+/.+/CaptchaImage\.axd
@@ -61,7 +58,7 @@
 ^https?://www\.flickr\.com/change_language\.gne
 
 # google.com/finance can be an endless loop
-^https?://www\.google\.((com|ad|ae|al|am|as|at|az|ba|be|bf|bg|bi|bj|bs|bt|by|ca|cd|cf|cg|ch|ci|cl|cm|cn|cv|cz|de|dj|dk|dm|dz|ee|es|fi|fm|fr|ga|ge|gg|gl|gm|gp|gr|gy|hn|hr|ht|hu|ie|im|iq|is|it|je|jo|ki|kg|kz|la|li|lk|lt|lu|lv|md|me|mg|mk|ml|mn|ms|mu|mv|mw|ne|nl|no|nr|nu|pl|pn|ps|pt|ro|ru|rw|sc|se|sh|si|sk|sn|so|sm|sr|st|td|tg|tk|tl|tm|tn|to|tt|vg|vu|ws|rs|cat)|(com\.(af|ag|ai|ar|au|bd|bh|bn|bo|br|bz|co|cu|cy|do|ec|eg|et|fj|gh|gi|gt|hk|jm|kh|kw|lb|ly|mm|mt|mx|my|na|nf|ng|ni|np|om|pa|pe|pg|ph|pk|pr|py|qa|sa|sb|sg|sl|sv|tj|tr|tw|ua|uy|vc|vn))|(co\.(ao|bw|ck|cr|id|il|in|jp|ke|kr|ls|ma|mz|nz|th|tz|ug|uk|uz|ve|vi|za|zm|zw)))/finance\?noIL=1&q=[^&]+&ei=
+^https?://(www|finance)\.google\.((com|ad|ae|al|am|as|at|az|ba|be|bf|bg|bi|bj|bs|bt|by|ca|cd|cf|cg|ch|ci|cl|cm|cn|cv|cz|de|dj|dk|dm|dz|ee|es|fi|fm|fr|ga|ge|gg|gl|gm|gp|gr|gy|hn|hr|ht|hu|ie|im|iq|is|it|je|jo|ki|kg|kz|la|li|lk|lt|lu|lv|md|me|mg|mk|ml|mn|ms|mu|mv|mw|ne|nl|no|nr|nu|pl|pn|ps|pt|ro|ru|rw|sc|se|sh|si|sk|sn|so|sm|sr|st|td|tg|tk|tl|tm|tn|to|tt|vg|vu|ws|rs|cat)|(com\.(af|ag|ai|ar|au|bd|bh|bn|bo|br|bz|co|cu|cy|do|ec|eg|et|fj|gh|gi|gt|hk|jm|kh|kw|lb|ly|mm|mt|mx|my|na|nf|ng|ni|np|om|pa|pe|pg|ph|pk|pr|py|qa|sa|sb|sg|sl|sv|tj|tr|tw|ua|uy|vc|vn))|(co\.(ao|bw|ck|cr|id|il|in|jp|ke|kr|ls|ma|mz|nz|th|tz|ug|uk|uz|ve|vi|za|zm|zw)))/finance\?noIL=1&q=[^&]+&ei=
 
 # Links to Wikipedia are very common, and the thumbnails are almost always
 # already archived at archive.org.
@@ -72,7 +69,9 @@
 ^https?://b\.scorecardresearch\.com/
 ^https?://pixel\.blog\.hu/
 ^https?://pixel\.redditmedia\.com/pixel/
+^https?://alb\.reddit\.com/
 ^https?://pixel\.quantserve\.com/
+^https?://pixel\.wp\.com/
 ^https?://(www|ssl)\.google-analytics\.com/(r/)?(__utm\.gif|collect\?)
 ^https?://p\.opt\.fimserve\.com/
 ^https?://.+/js-agent\.newrelic\.com/nr-\d{3}(\.min)?\.js$
@@ -80,6 +79,7 @@
 ^https?://.+/js/chartbeat\.js$
 ^https?://[^/]+\.xiti\.com/hit\.xiti\?
 ^https?://[^/]+\.services\.livejournal\.com/ljcounter
+^https?://beacon\.wikia-services\.com/
 
 # The tracking on warnerbros.com inexplicably links to bogus warnerbros.com/\d+ pages
 ^https?://www\.warnerbros\.com/\d+$
@@ -122,6 +122,7 @@
 ^https?://r-a-d\.io/.+\.mp3$
 ^https?://mp3tslg\.tdf-cdn\.com/
 ^https?://[^/]+/anony/mjpg\.cgi$
+^https?://[^/]+/mjpg/video\.mjpg
 ^https?://air\.radiorecord\.ru(:\d+)?/
 ^https?://[^/]+\.rastream\.com(:\d+)?/
 ^https?://audiots\.scdn\.arkena\.com/
@@ -133,7 +134,9 @@
 ^https?://(apis|plusone)\.google\.com/_/\+1/
 ^https?://(ssl\.|www\.)?reddit\.com/(login\?dest=|submit\?|static/button/button)
 ^https?://(www\.)?digg\.com/submit\?
-^https?://(www\.)?facebook\.com/(plugins/like(box)?\.php|sharer/sharer\.php|sharer?\.php|dialog/(feed|share))\?
+^https?://(www\.)?facebook\.com/(plugins/(share_button|like(box)?)\.php|sharer/sharer\.php|sharer?\.php|dialog/(feed|share))\?
+^https?://(www\.)?facebook\.com/v[\d\.]+/plugins/like\.php
+^https?://social-plugins\.line\.me/lineit/share
 ^https?://(www\.)?twitter\.com/(share\?|intent/((re)?tweet|favorite)|home/?\?status=|\?status=)
 ^https?://platform\d?\.twitter\.com/widgets/tweet_button.html\?
 ^https?://www\.newsvine\.com/_wine/save\?
@@ -141,7 +144,7 @@
 ^https?://add\.my\.yahoo\.com/(rss|content)\?
 ^https?://www\.addtoany\.com/(add_to/|share_save\?)
 ^https?://www\.addthis\.com/bookmark\.php\?
-^https?://(www\.)?pinterest\.com/pin/create/
+^https?://([^\.]+\.)?pinterest\.com/pin/create/
 ^https?://www\.linkedin\.com/(cws/share|shareArticle)\?
 ^https?://(www\.)?stumbleupon\.com/(submit\?|badge/embed/)
 ^https?://csp\.cyworld\.com/bi/bi_recommend_pop\.php\?
@@ -175,7 +178,10 @@
 ^https?://api\.addthis\.com/
 ^https?://bookmark\.naver\.com/post\?
 ^https?://(www\.)?instapaper\.com/hello2\?
-^https?://getpocket\.com/save/?\?
+^https?://getpocket\.com/(save|edit)/?\?
+^https?://medium\.com/_/vote/
+^https?://medium\.com/_/bookmark/
+^https?://medium\.com/_/subscribe/
 
 # mail.google.com requires login but shows up on the web surprisingly often
 ^https?://mail\.google\.com/mail/
@@ -223,7 +229,7 @@
 ^https?://{primary_netloc}/.*%5Cx26route=/archive
 
 # There are too many avatars on tumblr.com
-^https?://\d+\.media\.tumblr\.com/avatar_.+_16\.png$
+^https?://\d+\.media\.tumblr\.com/avatar_.+_16\.pn[gj]$
 
 ^https?://www\.livejournal\.com/(tools/memadd|update|(identity/)?login)\.bml\?
 ^https?://[^\.]+\.livejournal\.com/.+/\*sup_ru/ru/UTF-8/
@@ -238,7 +244,7 @@
 # Ignore /search.*updated-(min|max)= blogspot pagination because all posts are
 # crawled anyway via the _archive.html pages.  Need to ignore on all domains
 # because blogspot also runs on non-blogspot.com domains.
-^https?://{primary_netloc}/search(/label/[^\?]+|)\?updated-(min|max)=\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.*&max-results=\d+
+^https?://{primary_netloc}/search(/label/[^\?]+|\?q=[^&]+|)[\?&]updated-(min|max)=\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.*&max-results=\d+
 
 # Ignore bogus /CSI/ links on blogspot.com
 ^https?://.+\.blogspot\.(com|in|com\.au|co\.uk|jp|co\.nz|ca|de|it|fr|se|sg|es|pt|com\.br|ar|mx|kr)/(\d{4}/\d{2}/|search/label/)(CSI/$|.*/CSI/CSI/CSI/)
